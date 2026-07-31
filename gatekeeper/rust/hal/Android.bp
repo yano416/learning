@@ -1,0 +1,78 @@
+// Copyright 2025, The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+rust_defaults {
+    name: "gk_hal_defaults",
+    edition: "2021",
+    lints: "android",
+    rustlibs: [
+        "android.hardware.gatekeeper-V1-rust",
+        "android.hardware.security.secureclock-V1-rust",
+        "libbinder_rs",
+        "libciborium",
+        "libciborium_io",
+        "libgk_wire",
+        "libhal_wire",
+        "liblog_rust",
+    ],
+    defaults: [
+        "keymint_use_latest_hal_aidl_rust",
+    ],
+    proc_macros: [
+        "libhal_wire_derive",
+    ],
+}
+
+// This variant of the library just supports `IGatekeeper`.
+rust_library {
+    name: "libgk_hal",
+    crate_name: "gk_hal",
+    srcs: ["src/lib.rs"],
+    vendor_available: true,
+    defaults: [
+        "gk_hal_defaults",
+    ],
+}
+
+// This variant of the library enables the `sharedsecret` crate feature, which adds
+// support for the `ISharedSecret` HAL in addition to `IGatekeeper`.
+rust_library {
+    name: "libgk_hal_with_sharedsecret",
+    crate_name: "gk_hal",
+    srcs: ["src/lib.rs"],
+    vendor_available: true,
+    features: [
+        "sharedsecret",
+    ],
+    rustlibs: [
+        "android.hardware.security.sharedsecret-V1-rust",
+    ],
+    defaults: [
+        "gk_hal_defaults",
+    ],
+}
+
+rust_test {
+    name: "libgk_hal_test",
+    crate_name: "libgk_hal_test",
+    srcs: ["src/lib.rs"],
+    defaults: [
+        "gk_hal_defaults",
+    ],
+    test_suites: ["general-tests"],
+}

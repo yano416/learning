@@ -1,0 +1,18 @@
+git clone -b android16-qpr2-release https://android.googlesource.com/device/google/cuttlefish
+cd cuttlefish
+git checkout android16-qpr2-release
+
+git branch
+
+cd..
+git clone https://android.googlesource.com/platform/system/keymaster
+cd keymaster
+git checkout android16-qpr2-release
+git branch
+
+
+cd ..
+git clone https://android.googlesource.com/platform/system/gatekeeper
+cd gatekeeper/
+git checkout android16-qpr2-release
+git branch

@@ -1,0 +1,7 @@
+{
+  "presubmit": [
+    {
+      "name": "libgk_boringssl_test"
+    }
+  ]
+}
