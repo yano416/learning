@@ -16,3 +16,11 @@ git clone https://android.googlesource.com/platform/system/gatekeeper
 cd gatekeeper/
 git checkout android16-qpr2-release
 git branch
+
+git branch
+
+cd..
+git clone https://android.googlesource.com/platform/system/keymint
+cd keymint
+git checkout android16-qpr2-release
+git branch
